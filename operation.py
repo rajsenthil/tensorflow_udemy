@@ -69,23 +69,6 @@ class Graph():
     def set_as_default(self):
         global _default_graph
         _default_graph = self
-# A = 10
-# b = 1
-# z = A*x + b
-
-
-g = Graph()
-_default_graph = g
-g.set_as_default
-
-A = Variable(10)
-b = Variable(1)
-
-x = PlaceHolder()
-
-y = multiply(A, x)
-
-z = add(y, b)
 
 
 def traverse_postorder(operation):
@@ -119,6 +102,21 @@ class Session():
                 node.output = np.array(node.output)
         return operation.output
 
+g = Graph()
+_default_graph = g
+g.set_as_default
+
+# A = 10
+# b = 1
+# z = A*x + b
+A = Variable(10)
+b = Variable(1)
+
+x = PlaceHolder()
+
+y = multiply(A, x)
+
+z = add(y, b)
 
 sess = Session()
 result = sess.run(operation=z, feed_dict={x: 10})
