@@ -1,0 +1,7 @@
+import pandas as pd
+
+diabetes = pd.read_csv('./datasets/pima-indians-diabetes.csv')
+
+cols_to_norm = diabetes.columns.tolist()
+
+diabetes
