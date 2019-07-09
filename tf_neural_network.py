@@ -55,6 +55,8 @@ train = optimizer.minimize(error)
 
 init = tf.compat.v1.global_variables_initializer()
 
+saver = tf.train.Saver()
+
 with tf.compat.v1.Session() as session:
     session.run(init)
     training_steps = 100
@@ -64,8 +66,19 @@ with tf.compat.v1.Session() as session:
 
     final_slope, final_intercept = session.run(([m, b]))
 
+    # Saving the trained model
+    saver.save(session, 'models/tf_neural_network.ckpt')
+
+with tf.compat.v1.Session() as session:
+    # restoring the session
+    saver.restore(session, 'models/tf_neural_network.ckpt')
+
+    #Restoring the checkpoint
+    restored_slope, restored_intervept = session.run([m,b])
+
 x_test = np.linspace(-1, 11, 10)
 y_pred_plot = final_slope * x_test + final_intercept
 plt.plot(x_test, y_pred_plot, 'r')
 plt.plot(x_data, y_label, '*')
 plt.show()
+
